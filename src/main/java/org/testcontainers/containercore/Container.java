@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * TODO: Javadocs
  */
-public class Container {
+public class Container implements AutoCloseable {
 
     // Example properties that would be used during startup/runtime
     List<Integer> exposedPorts = new ArrayList<>();
@@ -36,4 +36,8 @@ public class Container {
         return new ContainerBuilder();
     }
 
+    @Override
+    public void close() throws Exception {
+        stop();
+    }
 }
