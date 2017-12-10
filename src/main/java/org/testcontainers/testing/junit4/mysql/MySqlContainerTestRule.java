@@ -1,7 +1,6 @@
 package org.testcontainers.testing.junit4.mysql;
 
 import lombok.experimental.Delegate;
-import org.testcontainers.containercore.BaseContainerBuilder;
 import org.testcontainers.containercore.Container;
 import org.testcontainers.containercore.Plugin;
 import org.testcontainers.testing.junit4.TestRuleImplementation;
@@ -14,7 +13,7 @@ public class MySqlContainerTestRule implements TestRuleImplementation {
     @Delegate
     private final Container container;
 
-    private MySqlContainerTestRule(Container container) {
+    MySqlContainerTestRule(Container container) {
         this.container = container;
     }
 
@@ -23,8 +22,8 @@ public class MySqlContainerTestRule implements TestRuleImplementation {
         return container;
     }
 
-    public static MySqlContainerTestRule.Builder builder() {
-        return new MySqlContainerTestRule.Builder()
+    public static MySqlContainerTestRuleBuilder builder() {
+        return new MySqlContainerTestRuleBuilder()
                 .withPlugin(new MySqlContainerPlugin());
     }
 
@@ -32,16 +31,6 @@ public class MySqlContainerTestRule implements TestRuleImplementation {
         return "some value";
     }
 
-    public static class Builder extends BaseContainerBuilder<MySqlContainerTestRule.Builder> {
-        private Builder() {
-            super();
-        }
-
-        public MySqlContainerTestRule build() {
-            validate();
-            return new MySqlContainerTestRule(container);
-        }
-    }
 }
 
 class MySqlContainerPlugin implements Plugin {
